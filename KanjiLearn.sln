@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanjiLearn.Server", "KanjiLearn.Server\KanjiLearn.Server.csproj", "{709CCFE4-DD00-4A41-8699-D97F6881B7D6}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "kanjilearn.client", "kanjilearn.client\kanjilearn.client.esproj", "{174F7D78-BDF6-4D57-A083-311E1397CA11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{709CCFE4-DD00-4A41-8699-D97F6881B7D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709CCFE4-DD00-4A41-8699-D97F6881B7D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709CCFE4-DD00-4A41-8699-D97F6881B7D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709CCFE4-DD00-4A41-8699-D97F6881B7D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174F7D78-BDF6-4D57-A083-311E1397CA11}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D6F196D-0296-4712-B2A4-2B9563DA5B27}
+	EndGlobalSection
+EndGlobal
