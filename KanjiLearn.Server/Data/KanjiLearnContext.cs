@@ -9,6 +9,8 @@ namespace KanjiLearn.Server.Data
         public DbSet<Readings> Readings { get; set; } = null!;
         public DbSet<Sentences> Sentences { get; set; } = null!;
 
+        private readonly IConfiguration _configuration = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Kanji>()
@@ -26,6 +28,12 @@ namespace KanjiLearn.Server.Data
                 .WithOne(e => e.Kanji)
                 .HasForeignKey(e => e.KanjiId)
                 .IsRequired();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connectionStringKanjiLearnDatabase = _configuration.GetConnectionString("KanjiLearnDatabase");
+            optionsBuilder.UseNpgsql(connectionStringKanjiLearnDatabase);
         }
     }
 }
