@@ -24,6 +24,6 @@ The project is in progress.
 _In progress_
 
 ## Licence
-> [Full content of the licence](#link_to_licence).
+> [Full content of the licence](LICENSE).
 
 MIT
