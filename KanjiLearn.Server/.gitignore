@@ -3,3 +3,4 @@ bin
 Controllers/TemperatureRequest.cs
 Controllers/*WeatherForecast*.cs
 Docs/Http/KanjiLearn.Server.http
+WeatherForecast.cs
