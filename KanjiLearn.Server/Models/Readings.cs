@@ -4,10 +4,10 @@ namespace KanjiLearn.Server.Models
 {
     public class Readings
     {
-        [Key]
         public int Id { get; set; }
         public string Kunyomi { get; set; } = null!;
         public string Onyomi { get; set; } = null!;
-        public Kanji Kanji { get; set; } = null!;
+        public int KanjiId { get; set; }
+        public virtual Kanji Kanji { get; set; } = null!;
     }
 }

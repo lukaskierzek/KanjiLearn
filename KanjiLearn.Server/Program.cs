@@ -1,4 +1,7 @@
 
+using KanjiLearn.Server.Controllers;
+using KanjiLearn.Server.Services;
+
 namespace KanjiLearn.Server
 {
     public class Program
@@ -8,7 +11,8 @@ namespace KanjiLearn.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddTransient<IWeatherForecastService,  WeatherForecastService>();
+            builder.Services.AddTransient<IKanjiService, KanjiService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
