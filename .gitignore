@@ -1,2 +1,3 @@
 .vs/
 .idea/
+/KanjiLearn.Server/Controllers/WeatherForecastController.cs
