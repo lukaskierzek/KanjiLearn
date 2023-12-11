@@ -2,3 +2,4 @@
 .idea/
 /KanjiLearn.Server/Controllers/WeatherForecastController.cs
 /KanjiLearn.Server/WeatherForecast.cs
+/KanjiLearn.Server/Controllers/KanjisControllertest.cs
