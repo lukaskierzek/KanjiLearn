@@ -2,7 +2,7 @@
 @port = 7192
 @KanjiLearn.Server_HostAddress = {{host}}:{{port}}
 
-GET {{KanjiLearn.Server_HostAddress}}/kanji/
+GET {{KanjiLearn.Server_HostAddress}}/api/kanji
 Accept: application/json
 
-###
+### Get all Kanji

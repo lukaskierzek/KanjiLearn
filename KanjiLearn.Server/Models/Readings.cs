@@ -9,5 +9,7 @@ namespace KanjiLearn.Server.Models
         public string Onyomi { get; set; } = null!;
         public int KanjiId { get; set; }
         public virtual Kanji Kanji { get; set; } = null!;
+        public DateTime Created { get; set; }
+        public DateTime LastModified { get; set; }
     }
 }

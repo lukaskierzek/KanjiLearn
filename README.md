@@ -1,6 +1,14 @@
 # Kanji Learn Web Page
 Web page to learn Kanji.
 
+## Table of contents
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Project Status](#project-status)
+* [Setup](#setup)
+* [Licene](#licence)
+
 ## Technologies Used
 - .NET 8
 - Entity Framework 8

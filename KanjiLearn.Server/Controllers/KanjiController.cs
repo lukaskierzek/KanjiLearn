@@ -1,27 +1,30 @@
-﻿using KanjiLearn.Server.Models;
-using KanjiLearn.Server.Services;
+﻿using KanjiLearn.Server.Data;
+using KanjiLearn.Server.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KanjiLearn.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/kanji")]
     public class KanjiController : ControllerBase
     {
-        private readonly ILogger<KanjiController> _logger;
-        private readonly IKanjiService _kanjiService;
+        private readonly KanjiLearnContext _dbContext;
 
-        public KanjiController(ILogger<KanjiController> logger, IKanjiService kanjiService)
+        public KanjiController(KanjiLearnContext dbContext)
         {
-            _logger = logger;
-            _kanjiService = kanjiService;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
-        public IEnumerable<Kanji> Get()
+        public async Task<ActionResult<IEnumerable<Kanji>>> Get()
         {
-            var result = _kanjiService.Get();
-            return result;
+            var kanjis = await _dbContext.Kanji
+                .Include( k => k.Sentences)
+                .Include(k => k.Readings)
+                .ToListAsync();
+            return kanjis;
         }
     }
 }
