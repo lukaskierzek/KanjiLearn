@@ -4,5 +4,12 @@
 
 GET {{KanjiLearn.Server_HostAddress}}/api/kanji
 Accept: application/json
+Accept-Charset: utf-16
 
 ### Get all Kanji
+
+GET {{KanjiLearn.Server_HostAddress}}/api/kanji/1
+Accept: application/json
+Accept-Charset: utf-16
+
+### Get Kanji with id 1
