@@ -3,6 +3,7 @@ using KanjiLearn.Server.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace KanjiLearn.Server.Controllers
 {
@@ -10,21 +11,35 @@ namespace KanjiLearn.Server.Controllers
     [Route("api/kanji")]
     public class KanjiController : ControllerBase
     {
-        private readonly KanjiLearnContext _dbContext;
+        private readonly KanjiLearnContext _context;
 
         public KanjiController(KanjiLearnContext dbContext)
         {
-            _dbContext = dbContext;
+            _context = dbContext;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Kanji>>> Get()
+        public async Task<ActionResult<IEnumerable<Kanji>>> GetAllKanji()
         {
-            var kanjis = await _dbContext.Kanji
+            var kanjis = await _context.Kanji
                 .Include( k => k.Sentences)
                 .Include(k => k.Readings)
                 .ToListAsync();
             return kanjis;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Kanji>> GetKanji(int id)
+        {
+            var kanji = await _context.Kanji
+                .Include(k => k.Sentences)
+                .Include(k => k.Readings)
+                .FirstOrDefaultAsync(k => k.Id == id);
+
+            if (kanji == null)
+                return NotFound();
+
+            return kanji;
         }
     }
 }
