@@ -1,49 +1,57 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import './App.css';
 
-function App() {
-    const [forecasts, setForecasts] = useState();
+export default function App() {
+    const [kanji, setKanji] = useState();
 
     useEffect(() => {
-        populateWeatherData();
+        getKanjiData();
     }, []);
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+    async function getKanjiData() {
+        try {
+            const kanjiResponse = await fetch("api/kanji");
+            if (!kanjiResponse.ok) {
+                throw new Error(`HTTP error: The status is ${kanjiResponse.status}`);
+            }
+            const kanjiData = await kanjiResponse.json();
+            setKanji(kanjiData);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const contentKanji = kanji === undefined
+        ? <p>Loading Kanji...</p>
+        : <>
+            {kanji.map(k =>
+                <>
+                    <table>
+                        <tr>Character: {k.character}</tr>
+                        <tr>Strokes: {k.strokes}</tr>
+                        <tr>Translation: {k.translation}</tr>
+                        <tr>Readings kunyomi: {k.readings.kunyomi}</tr>
+                        <tr>Readings onyomi: {k.readings.onyomi}</tr>
+                        <tr>Sentences: {k.sentences.map(s =>
+          
+                            <>
+                                <p>{s.sentenceKanji } - [{s.readingKanjiInSentence}] - {s.translationReadingKanjiInSentence}</p>
+                                <p>{s.translation}</p>
+                                <p>{s.sentence}</p>
+                                <hr/>
+                            </>
+                          
+                        )}</tr>
+                    </table>
+                    <hr/>
+                </>)}
+        </>;
 
     return (
-        <div>
-            <h1 id="tabelLabel">Weather forecast</h1>
+        <>
+            <h1 id="tabelLabel">Kanji</h1>
             <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
+            {contentKanji}
+        </>
     );
-    
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        setForecasts(data);
-    }
 }
-
-export default App;
