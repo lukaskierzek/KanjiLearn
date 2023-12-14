@@ -1,9 +1,7 @@
 ﻿using KanjiLearn.Server.Data;
 using KanjiLearn.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 namespace KanjiLearn.Server.Controllers
 {
