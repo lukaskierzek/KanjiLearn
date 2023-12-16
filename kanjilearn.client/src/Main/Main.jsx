@@ -58,7 +58,7 @@ export default function App() {
         <>
             <h1 id="tabelLabel">Kanji</h1>
             {loading && <p>Ładowanie Kanji...</p>} {/* Loading Kanji... */}
-            {error && (<p>{`Problem z ładowaniem Kanji. Błąd: "${error}". Odśwież stronę.`}</p>)} {/*There is a problem witch fetching Kanji. Error: "${error}". Please refresh the page.*/ }
+            {error && <p>{`Problem z ładowaniem Kanji. Błąd: "${error}". Proszę odśwież stronę.`}</p>} {/*There is a problem witch fetching Kanji. Error: "${error}". Please refresh the page.*/ }
             {kanji && contentKanji()}
         </>
     );
