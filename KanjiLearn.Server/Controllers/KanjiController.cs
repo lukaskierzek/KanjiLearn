@@ -11,18 +11,16 @@ namespace KanjiLearn.Server.Controllers
     {
         private readonly KanjiLearnContext _context;
 
-        public KanjiController(KanjiLearnContext dbContext)
-        {
-            _context = dbContext;
-        }
+        public KanjiController(KanjiLearnContext dbContext) => _context = dbContext;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Kanji>>> GetAllKanji()
         {
             var kanjis = await _context.Kanji
-                .Include( k => k.Sentences)
+                .Include(k => k.Sentences)
                 .Include(k => k.Readings)
                 .ToListAsync();
+
             return kanjis;
         }
 
