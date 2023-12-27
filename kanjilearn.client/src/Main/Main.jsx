@@ -31,25 +31,37 @@ export default function App() {
     function contentKanji() {
         return (
             <>
-                {kanji.map(k =>
-                    <>
-                        <table>
-                            <tr>Znak: {k.character}</tr>
-                            <tr>Liczba znaków: {k.strokes}</tr>
-                            <tr>Tłumaczenie: {k.translation}</tr>
-                            <tr>Czytanie kunyomi: {k.readings.kunyomi}</tr>
-                            <tr>Czytanie onyomi: {k.readings.onyomi}</tr>
-                            <tr>Zdania: {k.sentences.map(s =>
-                                <>
-                                    <p>{s.sentenceKanji} -「{s.readingKanjiInSentence}」- {s.translationReadingKanjiInSentence}</p>
-                                    <p>{s.translation}</p>
-                                    <p>{s.sentence}</p>
-                                    <hr />
-                                </>
-                            )}</tr>
-                        </table>
-                        <hr />
-                    </>)}
+                <table>
+                    <thead>
+                        <th>Znak</th>
+                        <th>Liczka kresek</th>
+                        <th>Tłumaczenie</th>
+                        <th>Czytanie kunyomi</th>
+                        <th>Czytanie onyomi</th>
+                        <th>Przykładowe zdania</th>
+                    </thead>
+                    <tbody>
+                        {kanji.map(k =>
+                            <>
+                                <tr>
+                                    <td>{k.character}</td>
+                                    <td>{k.strokes}</td>
+                                    <td>{k.translation}</td>
+                                    <td>{k.readings.kunyomi}</td>
+                                    <td>{k.readings.onyomi}</td>
+                                    <td id="sampleSentences">{k.sentences.map(s =>
+                                        <>
+                                            <br />
+                                            <p>{s.sentenceKanji} -「{s.readingKanjiInSentence}」- {s.translationReadingKanjiInSentence}</p>
+                                            <p>{s.translation}</p>
+                                            <p>{s.sentence}</p>
+                                        </>
+                                    )}</td>
+                                </tr>
+                            </>
+                        ) }
+                    </tbody>
+                </table>
             </>
         );
     }
