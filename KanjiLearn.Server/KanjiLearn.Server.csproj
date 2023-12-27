@@ -35,4 +35,12 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Kierzu\source\repos\KanjiLearn\KanjiLearn.Server\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Kierzu\source\repos\KanjiLearn\KanjiLearn.Server\.editorconfig" />
+  </ItemGroup>
+
 </Project>
