@@ -23,7 +23,7 @@ Web page to learn Kanji.
 - N5 Kanji list.
 
 ## Screenshots
-_In progress_
+![main_page](Images/main_page.png)
 
 ## Project Status
 The project is in progress.
