@@ -5,17 +5,17 @@
     text-align: center;
 }
 
-tr:nth-child(even) {
-    background: #F2F2F2;
+#sampleSentences {
+    text-align: left;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
+tr {
+    background-color: #343434;
 }
 
 th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 table {
