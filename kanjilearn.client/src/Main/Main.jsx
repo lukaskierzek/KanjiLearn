@@ -47,14 +47,14 @@ export default function App() {
                                     <td>{k.character}</td>
                                     <td>{k.strokes}</td>
                                     <td>{k.translation}</td>
-                                    <td>{k.readings.kunyomi}</td>
-                                    <td>{k.readings.onyomi}</td>
+                                    <td>{k.kunyomi}</td>
+                                    <td>{k.onyomi}</td>
                                     <td id="sampleSentences">{k.sentences.map(s =>
                                         <>
-                                            <br />
                                             <p>{s.sentenceKanji} -「{s.readingKanjiInSentence}」- {s.translationReadingKanjiInSentence}</p>
                                             <p>{s.translation}</p>
                                             <p>{s.sentence}</p>
+                                            <hr id="hrSampleSentences"/>
                                         </>
                                     )}</td>
                                 </tr>
