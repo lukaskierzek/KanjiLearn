@@ -12,13 +12,4 @@ namespace KanjiLearn.Server.Models
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
     }
-
-    public record KanjiDTO
-    {
-        public required string Character { get; init; }
-        public required string Translation { get; init; }
-        public required int Strokes { get; init; }
-        public required DateTime Created { get; init; } = DateTime.UtcNow;
-        public required DateTime LastModified { get; init; }
-    };
 }

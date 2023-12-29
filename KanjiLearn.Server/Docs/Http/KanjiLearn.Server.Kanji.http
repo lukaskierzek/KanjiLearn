@@ -13,3 +13,9 @@ Accept: application/json
 Accept-Charset: utf-16
 
 ### Get Kanji with id 1
+
+GET {{KanjiLearn.Server_HostAddress}}/api/kanji/999999
+Accept: application/json
+Accept-Charset: utf-16
+
+### Kanji of id 999999 not found. The status should be 404
