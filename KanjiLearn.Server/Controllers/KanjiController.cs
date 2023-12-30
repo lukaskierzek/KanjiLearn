@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using KanjiLearn.Server.Data;
+﻿using KanjiLearn.Server.Data;
 using KanjiLearn.Server.Models;
-using KanjiLearn.Server.ModelsDTO;
+using KanjiLearn.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +10,13 @@ namespace KanjiLearn.Server.Controllers
     [Route("api/kanji")]
     public class KanjiController : ControllerBase
     {
+        private readonly IKanjiService _kanjiService;
         private readonly KanjiLearnContext _context;
-        private readonly IMapper _mapper;
 
-        public KanjiController(KanjiLearnContext dbContext, IMapper mapper)
+        public KanjiController(KanjiLearnContext dbContext, IKanjiService kanjiSerrvice)
         {
+            _kanjiService = kanjiSerrvice;
             _context = dbContext;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,7 +27,7 @@ namespace KanjiLearn.Server.Controllers
                 .Include(k => k.Readings)
                 .ToListAsync();
 
-            var kanjiDTOs = _mapper.Map<List<KanjiDTO>>(kanji);
+            var kanjiDTOs = _kanjiService.GetAllKanji(kanji);
 
             return Ok(kanjiDTOs);
         }
@@ -41,10 +40,10 @@ namespace KanjiLearn.Server.Controllers
                 .Include(k => k.Readings)
                 .FirstOrDefaultAsync(k => k.Id == id);
 
-            if (kanji == null)
-                return NotFound();
+            var kanjiDTO = _kanjiService.GetKanji(kanji);
 
-            var kanjiDTO = _mapper.Map<KanjiDTO>(kanji);   
+            if (kanjiDTO == null)
+                return NotFound();
 
             return Ok(kanjiDTO);
         }

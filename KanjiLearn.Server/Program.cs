@@ -1,4 +1,5 @@
 using KanjiLearn.Server.Data;
+using KanjiLearn.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -23,6 +24,7 @@ namespace KanjiLearn.Server
                 });
 
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddScoped<IKanjiService, KanjiService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
