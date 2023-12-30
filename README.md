@@ -1,5 +1,5 @@
 # Kanji Learn Web Page
-Web page to learn Kanji.
+Web page to learn Kanji in Polish.
 
 ## Table of contents
 * [Technologies Used](#technologies-used)
