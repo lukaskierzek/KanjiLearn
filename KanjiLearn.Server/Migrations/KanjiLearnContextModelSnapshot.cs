@@ -59,8 +59,8 @@ namespace KanjiLearn.Server.Migrations
                         {
                             Id = 1,
                             Character = "人",
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8633),
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8636),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(2924),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(2931),
                             Strokes = 2,
                             Translation = "Człowiek"
                         },
@@ -68,8 +68,8 @@ namespace KanjiLearn.Server.Migrations
                         {
                             Id = 2,
                             Character = "日",
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8638),
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8639),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(2934),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(2934),
                             Strokes = 4,
                             Translation = "Dzień, słońce"
                         });
@@ -78,7 +78,10 @@ namespace KanjiLearn.Server.Migrations
             modelBuilder.Entity("KanjiLearn.Server.Models.Readings", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
@@ -101,7 +104,8 @@ namespace KanjiLearn.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KanjiId");
+                    b.HasIndex("KanjiId")
+                        .IsUnique();
 
                     b.ToTable("Readings");
 
@@ -109,19 +113,19 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8997),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3153),
                             KanjiId = 1,
                             Kunyomi = "ジン、ニン",
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(8998),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3154),
                             Onyomi = "ひと"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9000),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3156),
                             KanjiId = 2,
                             Kunyomi = "ニチ、 ジツ",
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9000),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3157),
                             Onyomi = "ひ、び"
                         });
                 });
@@ -178,9 +182,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9029),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3186),
                             KanjiId = 1,
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9030),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3188),
                             ReadingKanjiInSentence = "ひと",
                             Sentence = "この人はにほんじんです。",
                             SentenceKanji = "人",
@@ -190,9 +194,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9037),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3190),
                             KanjiId = 1,
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9038),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3191),
                             ReadingKanjiInSentence = "ひとびと",
                             Sentence = "なぜ人々はほんをよみますか。",
                             SentenceKanji = "人々",
@@ -202,9 +206,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9041),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3193),
                             KanjiId = 2,
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9042),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3193),
                             ReadingKanjiInSentence = "ひ",
                             Sentence = "ほんとうにいい日でした",
                             SentenceKanji = "日",
@@ -214,9 +218,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9046),
+                            Created = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3195),
                             KanjiId = 2,
-                            LastModified = new DateTime(2023, 12, 11, 15, 37, 39, 880, DateTimeKind.Utc).AddTicks(9047),
+                            LastModified = new DateTime(2024, 1, 4, 11, 1, 24, 393, DateTimeKind.Utc).AddTicks(3196),
                             ReadingKanjiInSentence = "ひび",
                             Sentence = "ともだちとあうとき、むかしの日々をおもいだします。",
                             SentenceKanji = "日々",
@@ -227,15 +231,9 @@ namespace KanjiLearn.Server.Migrations
 
             modelBuilder.Entity("KanjiLearn.Server.Models.Readings", b =>
                 {
-                    b.HasOne("KanjiLearn.Server.Models.Kanji", null)
-                        .WithOne("Readings")
-                        .HasForeignKey("KanjiLearn.Server.Models.Readings", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KanjiLearn.Server.Models.Kanji", "Kanji")
-                        .WithMany()
-                        .HasForeignKey("KanjiId")
+                        .WithOne("Readings")
+                        .HasForeignKey("KanjiLearn.Server.Models.Readings", "KanjiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

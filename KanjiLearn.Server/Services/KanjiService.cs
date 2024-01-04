@@ -30,5 +30,11 @@ namespace KanjiLearn.Server.Services
             var KanjiDTO = _mapper.Map<KanjiDTO>(kanji);
             return KanjiDTO;
         }
+
+        public Kanji CreateKanji(CreateKanjiDTO createKanjiDTO)
+        {
+            var kanji = _mapper.Map<Kanji>(createKanjiDTO);
+            return kanji;
+        }
     }
 }

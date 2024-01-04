@@ -30,8 +30,8 @@ namespace KanjiLearn.Server.Data
 
             modelBuilder.Entity<Kanji>()
                 .HasOne(k => k.Readings)
-                .WithOne()
-                .HasForeignKey<Readings>(r => r.Id)
+                .WithOne(r => r.Kanji)
+                .HasForeignKey<Readings>(r => r.KanjiId)
                 .IsRequired();
 
             modelBuilder.Entity<Kanji>()
@@ -116,7 +116,7 @@ namespace KanjiLearn.Server.Data
                             Onyomi = "ひ、び",
                             KanjiId = 2,
                             Created = DateTime.UtcNow,
-                            LastModified = DateTime.UtcNow
+                            LastModified = DateTime.UtcNow,
                         }
                     );
             #endregion

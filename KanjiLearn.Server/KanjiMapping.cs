@@ -13,6 +13,16 @@ namespace KanjiLearn.Server
                 .ForMember(kdto => kdto.Onyomi, c => c.MapFrom(k => k.Readings.Onyomi));
 
             CreateMap<Sentences, SentencesDTO>();
+
+            CreateMap<CreateKanjiDTO, Kanji>()
+                .ForMember(kanji => kanji.Readings,
+                c => c.MapFrom(ckdto => new Readings()
+                {
+                    Kunyomi = ckdto.Kunyomi,
+                    Onyomi = ckdto.Onyomi,
+                    LastModified = ckdto.LastModified,
+                    Created = ckdto.Created
+                }));
         }
     }
 }

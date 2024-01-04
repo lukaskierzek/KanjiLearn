@@ -1,5 +1,6 @@
 ﻿using KanjiLearn.Server.Data;
 using KanjiLearn.Server.Models;
+using KanjiLearn.Server.ModelsDTO;
 using KanjiLearn.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,17 @@ namespace KanjiLearn.Server.Controllers
                 return NotFound();
 
             return Ok(kanjiDTO);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Kanji>> PostKanji([FromBody] CreateKanjiDTO createKanjiDTO)
+        {
+            var kanji = _kanjiService.CreateKanji(createKanjiDTO);
+
+            _context.Kanji.Add(kanji);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetKanji", new { id = kanji.Id }, kanji);
         }
     }
 }
