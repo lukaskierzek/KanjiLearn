@@ -36,5 +36,15 @@ namespace KanjiLearn.Server.Services
             var kanji = _mapper.Map<Kanji>(createKanjiDTO);
             return kanji;
         }
+
+        public bool DeleteKanji(Kanji kanji)
+        {
+            if (kanji == null)
+                return false;
+
+            _context.Kanji.Remove(kanji);
+            return true;
+        }
+
     }
 }

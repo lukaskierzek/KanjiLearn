@@ -59,5 +59,20 @@ namespace KanjiLearn.Server.Controllers
 
             return CreatedAtAction("GetKanji", new { id = kanji.Id }, kanji);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteKanji([FromRoute] int id)
+        {
+            var kanji = await _context.Kanji.FindAsync(id);
+
+            bool isDeleted = _kanjiService.DeleteKanji(kanji);
+            
+            if (!isDeleted)
+                return NotFound();
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

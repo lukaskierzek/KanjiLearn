@@ -35,3 +35,7 @@ Content-Type: application/json
 }
 
 ### Create new Kanji with readings
+
+DELETE {{KanjiLearn.Server_HostAddress}}/api/kanji/8
+
+### Delete Kanji
