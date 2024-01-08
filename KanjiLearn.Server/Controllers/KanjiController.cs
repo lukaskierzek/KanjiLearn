@@ -66,11 +66,47 @@ namespace KanjiLearn.Server.Controllers
             var kanji = await _context.Kanji.FindAsync(id);
 
             bool isDeleted = _kanjiService.DeleteKanji(kanji);
-            
+
             if (!isDeleted)
                 return NotFound();
 
             await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutKanji([FromRoute] int id, [FromBody] UpdateKanjiDTO updateKanjiDTO)
+        {
+            var kanji = await _context.Kanji
+                .Include(k => k.Readings)
+                .FirstOrDefaultAsync(k => k.Id == id);
+
+            var kanjiStatus = _kanjiService.CheckPutKanji(kanji, id, updateKanjiDTO);
+
+            if (kanjiStatus)
+                return NotFound();
+
+            if (kanjiStatus)
+                return BadRequest();
+
+#if DEBUG
+            var kanjiState = _context.Entry(kanji).State; 
+#endif
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                var isAnyKanji = _kanjiService.IsAnyKanjiById(id);
+
+                if (isAnyKanji)
+                    return NotFound();
+                else
+                    throw;
+            }
 
             return NoContent();
         }

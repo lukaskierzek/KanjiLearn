@@ -24,7 +24,7 @@ namespace KanjiLearn.Server.Services
 
         public KanjiDTO GetKanji(Kanji kanji)
         {
-            if (kanji == null)
+            if (kanji.IsNull())
                 return null;
 
             var KanjiDTO = _mapper.Map<KanjiDTO>(kanji);
@@ -39,12 +39,36 @@ namespace KanjiLearn.Server.Services
 
         public bool DeleteKanji(Kanji kanji)
         {
-            if (kanji == null)
+            if (kanji.IsNull())
                 return false;
 
             _context.Kanji.Remove(kanji);
             return true;
         }
 
+        public bool CheckPutKanji(Kanji? kanji, int id, UpdateKanjiDTO updateKanjiDTO)
+        {
+            bool isOk = false;
+
+            if (kanji.IsNull())
+                isOk = true;
+
+            if (kanji.Id != id)
+                isOk = true;
+
+            if (!isOk)
+            {
+                kanji.Character = updateKanjiDTO.Character;
+                kanji.Strokes = updateKanjiDTO.Strokes;
+                kanji.Translation = updateKanjiDTO.Translation;
+                kanji.Readings.Kunyomi = updateKanjiDTO.Kunyomi;
+                kanji.Readings.Onyomi = updateKanjiDTO.Onyomi;
+                kanji.LastModified = updateKanjiDTO.LastModified;
+            }
+
+            return isOk;
+        }
+
+        public bool IsAnyKanjiById(int id) => _context.Kanji.Any(e => e.Id == id);
     }
 }

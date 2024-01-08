@@ -10,5 +10,7 @@ namespace KanjiLearn.Server.Services
         KanjiDTO GetKanji(Kanji kanji);
         Kanji CreateKanji(CreateKanjiDTO createKanjiDTO);
         bool DeleteKanji(Kanji kanji);
+        bool CheckPutKanji(Kanji? kanji, int id, UpdateKanjiDTO updateKanjiDTO);
+        bool IsAnyKanjiById(int id);
     }
 }

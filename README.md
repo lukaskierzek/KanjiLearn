@@ -23,7 +23,11 @@ Web page to learn Kanji in Polish.
 - N5 Kanji list.
 
 ## Screenshots
-![main_page](Images/main_page.png)
+>Main page
+>![main_page](Images/main_page.png)
+
+>Database diagram
+>![kanji_database](Images/KanjiDatabase.png)
 
 ## Project Status
 The project is in progress.
