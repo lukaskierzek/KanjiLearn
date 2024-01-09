@@ -22,7 +22,7 @@ namespace KanjiLearn.Server.Services
             return kanjiDTOs;
         }
 
-        public KanjiDTO GetKanji(Kanji kanji)
+        public KanjiDTO? GetKanji(Kanji kanji)
         {
             if (kanji.IsNull())
                 return null;
@@ -48,25 +48,28 @@ namespace KanjiLearn.Server.Services
 
         public bool CheckPutKanji(Kanji? kanji, int id, UpdateKanjiDTO updateKanjiDTO)
         {
-            bool isOk = false;
+            bool isBad = false;
 
             if (kanji.IsNull())
-                isOk = true;
+                isBad = true;
 
             if (kanji.Id != id)
-                isOk = true;
+                isBad = true;
 
-            if (!isOk)
-            {
-                kanji.Character = updateKanjiDTO.Character;
-                kanji.Strokes = updateKanjiDTO.Strokes;
-                kanji.Translation = updateKanjiDTO.Translation;
-                kanji.Readings.Kunyomi = updateKanjiDTO.Kunyomi;
-                kanji.Readings.Onyomi = updateKanjiDTO.Onyomi;
-                kanji.LastModified = updateKanjiDTO.LastModified;
-            }
+            if (!isBad)
+                UpdateKanjiByKanjiDTO(kanji, updateKanjiDTO);
 
-            return isOk;
+            return isBad;
+        }
+
+        private static void UpdateKanjiByKanjiDTO(Kanji kanji, UpdateKanjiDTO updateKanjiDTO)
+        {
+            kanji.Character = updateKanjiDTO.Character;
+            kanji.Strokes = updateKanjiDTO.Strokes;
+            kanji.Translation = updateKanjiDTO.Translation;
+            kanji.Readings.Kunyomi = updateKanjiDTO.Kunyomi;
+            kanji.Readings.Onyomi = updateKanjiDTO.Onyomi;
+            kanji.LastModified = updateKanjiDTO.LastModified;
         }
 
         public bool IsAnyKanjiById(int id) => _context.Kanji.Any(e => e.Id == id);

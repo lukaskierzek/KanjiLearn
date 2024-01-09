@@ -96,12 +96,11 @@ namespace KanjiLearn.Server.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await SavePutKanji();
             }
             catch (DbUpdateConcurrencyException)
             {
                 var isAnyKanji = _kanjiService.IsAnyKanjiById(id);
-
                 if (isAnyKanji)
                     return NotFound();
                 else
@@ -110,5 +109,7 @@ namespace KanjiLearn.Server.Controllers
 
             return NoContent();
         }
+
+        private async Task SavePutKanji() => await _context.SaveChangesAsync();
     }
 }

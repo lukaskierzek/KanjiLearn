@@ -11,9 +11,7 @@ namespace KanjiLearn.Server
             CreateMap<Kanji, KanjiDTO>()
                 .ForMember(kdto => kdto.Kunyomi, c => c.MapFrom(k => k.Readings.Kunyomi))
                 .ForMember(kdto => kdto.Onyomi, c => c.MapFrom(k => k.Readings.Onyomi));
-
-            CreateMap<Sentences, SentencesDTO>();
-
+           
             CreateMap<CreateKanjiDTO, Kanji>()
                 .ForMember(kanji => kanji.Readings,
                 c => c.MapFrom(ckdto => new Readings()
@@ -23,6 +21,9 @@ namespace KanjiLearn.Server
                     LastModified = ckdto.LastModified,
                     Created = ckdto.Created
                 }));
+
+            CreateMap<Sentences, SentencesDTO>();
+            CreateMap<CreateSentencesDTO, Sentences>();
         }
     }
 }

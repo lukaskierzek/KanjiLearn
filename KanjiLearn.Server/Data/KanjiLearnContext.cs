@@ -32,12 +32,14 @@ namespace KanjiLearn.Server.Data
                 .HasOne(k => k.Readings)
                 .WithOne(r => r.Kanji)
                 .HasForeignKey<Readings>(r => r.KanjiId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired();
 
             modelBuilder.Entity<Kanji>()
                 .HasMany(k => k.Sentences)
                 .WithOne(s => s.Kanji)
                 .HasForeignKey(e => e.KanjiId)
+                .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired();
             #endregion
 
