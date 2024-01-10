@@ -7,6 +7,7 @@
         public required string ReadingKanjiInSentence { get; init; }
         public required string TranslationReadingKanjiInSentence { get; init; }
         public required string SentenceKanji { get; init; }
+        public required int KanjiId { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime LastModified { get; set; } = DateTime.UtcNow;
     }

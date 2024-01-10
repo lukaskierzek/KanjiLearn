@@ -57,7 +57,7 @@ namespace KanjiLearn.Server.Controllers
             _context.Kanji.Add(kanji);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetKanji", new { id = kanji.Id }, kanji);
+            return CreatedAtAction(nameof(GetKanji), new { id = kanji.Id }, kanji);
         }
 
         [HttpDelete("{id}")]
