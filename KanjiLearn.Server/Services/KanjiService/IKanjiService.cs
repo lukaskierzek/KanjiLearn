@@ -1,8 +1,7 @@
 ﻿using KanjiLearn.Server.Models;
 using KanjiLearn.Server.ModelsDTO;
-using Microsoft.AspNetCore.Mvc;
 
-namespace KanjiLearn.Server.Services
+namespace KanjiLearn.Server.Services.KanjiService
 {
     public interface IKanjiService
     {
@@ -10,7 +9,7 @@ namespace KanjiLearn.Server.Services
         KanjiDTO GetKanji(Kanji kanji);
         Kanji CreateKanji(CreateKanjiDTO createKanjiDTO);
         bool DeleteKanji(Kanji kanji);
-        bool CheckPutKanji(Kanji? kanji, int id, UpdateKanjiDTO updateKanjiDTO);
         bool IsAnyKanjiById(int id);
+        void UpdateKanjiByKanjiDTO(Kanji? kanji, int id, UpdateKanjiDTO updateKanjiDTO);
     }
 }

@@ -1,26 +1,27 @@
 ﻿@host = https://localhost
 @port = 7192
-@KanjiLearn.Server_HostAddress = {{host}}:{{port}}
+@route = api/kanji
+@KanjiLearn.Server_HostAddress = {{host}}:{{port}}/{{route}}
 
-GET {{KanjiLearn.Server_HostAddress}}/api/kanji
+GET {{KanjiLearn.Server_HostAddress}}
 Accept: application/json
 Accept-Charset: utf-16
 
 ### Get all Kanji
 
-GET {{KanjiLearn.Server_HostAddress}}/api/kanji/1
+GET {{KanjiLearn.Server_HostAddress}}/1
 Accept: application/json
 Accept-Charset: utf-16
 
 ### Get Kanji with id 1
 
-GET {{KanjiLearn.Server_HostAddress}}/api/kanji/999999
+GET {{KanjiLearn.Server_HostAddress}}/999999
 Accept: application/json
 Accept-Charset: utf-16
 
 ### Kanji of id 999999 not found. The status should be 404
 
-POST {{KanjiLearn.Server_HostAddress}}/api/kanji
+POST {{KanjiLearn.Server_HostAddress}}
 Accept: text/plain
 Content-Type: application/json
 
@@ -36,6 +37,6 @@ Content-Type: application/json
 
 ### Create new Kanji with readings
 
-DELETE {{KanjiLearn.Server_HostAddress}}/api/kanji/8
+DELETE {{KanjiLearn.Server_HostAddress}}/3
 
 ### Delete Kanji

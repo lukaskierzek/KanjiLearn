@@ -3,8 +3,8 @@ using System;
 using KanjiLearn.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -17,38 +17,38 @@ namespace KanjiLearn.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("KanjiLearn.Server.Models.Kanji", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Character")
                         .IsRequired()
                         .HasMaxLength(1)
-                        .HasColumnType("character varying(1)");
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LastModified")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Strokes")
                         .HasMaxLength(2)
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("Translation")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -59,8 +59,8 @@ namespace KanjiLearn.Server.Migrations
                         {
                             Id = 1,
                             Character = "人",
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3471),
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3474),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7508),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7510),
                             Strokes = 2,
                             Translation = "Człowiek"
                         },
@@ -68,8 +68,8 @@ namespace KanjiLearn.Server.Migrations
                         {
                             Id = 2,
                             Character = "日",
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3477),
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3478),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7512),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7513),
                             Strokes = 4,
                             Translation = "Dzień, słońce"
                         });
@@ -79,33 +79,34 @@ namespace KanjiLearn.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("KanjiId")
-                        .HasColumnType("integer");
+                    b.Property<int?>("KanjiId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Kunyomi")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("LastModified")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Onyomi")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KanjiId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[KanjiId] IS NOT NULL");
 
                     b.ToTable("Readings");
 
@@ -113,19 +114,19 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3735),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7674),
                             KanjiId = 1,
                             Kunyomi = "ジン、ニン",
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3735),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7675),
                             Onyomi = "ひと"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3738),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7678),
                             KanjiId = 2,
                             Kunyomi = "ニチ、 ジツ",
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3739),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7678),
                             Onyomi = "ひ、び"
                         });
                 });
@@ -134,43 +135,43 @@ namespace KanjiLearn.Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("KanjiId")
-                        .HasColumnType("integer");
+                    b.Property<int?>("KanjiId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastModified")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ReadingKanjiInSentence")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Sentence")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("SentenceKanji")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Translation")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("TranslationReadingKanjiInSentence")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -182,9 +183,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3771),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7703),
                             KanjiId = 1,
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3772),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7704),
                             ReadingKanjiInSentence = "ひと",
                             Sentence = "この人はにほんじんです。",
                             SentenceKanji = "人",
@@ -194,9 +195,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3775),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7707),
                             KanjiId = 1,
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3776),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7708),
                             ReadingKanjiInSentence = "ひとびと",
                             Sentence = "なぜ人々はほんをよみますか。",
                             SentenceKanji = "人々",
@@ -206,9 +207,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3778),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7710),
                             KanjiId = 2,
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3779),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7710),
                             ReadingKanjiInSentence = "ひ",
                             Sentence = "ほんとうにいい日でした",
                             SentenceKanji = "日",
@@ -218,9 +219,9 @@ namespace KanjiLearn.Server.Migrations
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3781),
+                            Created = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7712),
                             KanjiId = 2,
-                            LastModified = new DateTime(2024, 1, 8, 14, 41, 25, 11, DateTimeKind.Utc).AddTicks(3782),
+                            LastModified = new DateTime(2024, 1, 27, 19, 6, 31, 788, DateTimeKind.Utc).AddTicks(7713),
                             ReadingKanjiInSentence = "ひび",
                             Sentence = "ともだちとあうとき、むかしの日々をおもいだします。",
                             SentenceKanji = "日々",
@@ -234,8 +235,7 @@ namespace KanjiLearn.Server.Migrations
                     b.HasOne("KanjiLearn.Server.Models.Kanji", "Kanji")
                         .WithOne("Readings")
                         .HasForeignKey("KanjiLearn.Server.Models.Readings", "KanjiId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Kanji");
                 });
@@ -245,16 +245,14 @@ namespace KanjiLearn.Server.Migrations
                     b.HasOne("KanjiLearn.Server.Models.Kanji", "Kanji")
                         .WithMany("Sentences")
                         .HasForeignKey("KanjiId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Kanji");
                 });
 
             modelBuilder.Entity("KanjiLearn.Server.Models.Kanji", b =>
                 {
-                    b.Navigation("Readings")
-                        .IsRequired();
+                    b.Navigation("Readings");
 
                     b.Navigation("Sentences");
                 });

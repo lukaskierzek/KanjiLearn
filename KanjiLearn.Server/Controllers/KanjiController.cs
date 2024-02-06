@@ -1,7 +1,8 @@
 ﻿using KanjiLearn.Server.Data;
 using KanjiLearn.Server.Models;
+using KanjiLearn.Server.Models.Extensions;
 using KanjiLearn.Server.ModelsDTO;
-using KanjiLearn.Server.Services;
+using KanjiLearn.Server.Services.KanjiService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,26 +12,24 @@ namespace KanjiLearn.Server.Controllers
     [Route("api/kanji")]
     public class KanjiController : ControllerBase
     {
-        private readonly IKanjiService _kanjiService;
         private readonly KanjiLearnContext _context;
-
-        public KanjiController(KanjiLearnContext dbContext, IKanjiService kanjiSerrvice)
+        private readonly IKanjiService _kanjiService;
+        public KanjiController(KanjiLearnContext dbContext, IKanjiService kanjiService)
         {
-            _kanjiService = kanjiSerrvice;
             _context = dbContext;
+            _kanjiService = kanjiService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Kanji>>> GetAllKanji()
         {
             var kanji = await _context.Kanji
-                .Include(k => k.Sentences)
-                .Include(k => k.Readings)
+                .Include(kanji => kanji.Sentences)
+                .Include(kanji => kanji.Readings)
                 .ToListAsync();
 
-            var kanjiDTOs = _kanjiService.GetAllKanji(kanji);
-
-            return Ok(kanjiDTOs);
+            var kanjiDTO = _kanjiService.GetAllKanji(kanji);
+            return Ok(kanjiDTO);
         }
 
         [HttpGet("{id}")]
@@ -41,9 +40,12 @@ namespace KanjiLearn.Server.Controllers
                 .Include(k => k.Readings)
                 .FirstOrDefaultAsync(k => k.Id == id);
 
+            if (kanji.IsNull())
+                return NotFound();
+            
             var kanjiDTO = _kanjiService.GetKanji(kanji);
 
-            if (kanjiDTO == null)
+            if (kanjiDTO.IsNull())
                 return NotFound();
 
             return Ok(kanjiDTO);
@@ -82,21 +84,20 @@ namespace KanjiLearn.Server.Controllers
                 .Include(k => k.Readings)
                 .FirstOrDefaultAsync(k => k.Id == id);
 
-            var kanjiStatus = _kanjiService.CheckPutKanji(kanji, id, updateKanjiDTO);
-
-            if (kanjiStatus)
+            if (kanji.IsNull())
                 return NotFound();
 
-            if (kanjiStatus)
+            if (kanji.IsDifferentId(id))
                 return BadRequest();
 
+            _kanjiService.UpdateKanjiByKanjiDTO(kanji, id, updateKanjiDTO);
 #if DEBUG
-            var kanjiState = _context.Entry(kanji).State; 
+            var kanjiState = _context.Entry(kanji).State;
 #endif
 
             try
             {
-                await SavePutKanji();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -109,7 +110,5 @@ namespace KanjiLearn.Server.Controllers
 
             return NoContent();
         }
-
-        private async Task SavePutKanji() => await _context.SaveChangesAsync();
     }
 }

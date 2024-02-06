@@ -29,39 +29,47 @@ export default function App() {
     }
 
     function contentKanji() {
+        const tableKanji =
+        <>
+            <table>
+                <thead>
+                    <th>Znak</th>
+                    <th>Liczka kresek</th>
+                    <th>Tłumaczenie</th>
+                    <th>Czytanie kunyomi</th>
+                    <th>Czytanie onyomi</th>
+                    <th>Przykładowe zdania</th>
+                </thead>
+                <tbody>
+                    {kanji.map(k =>
+                        <>
+                            <tr>
+                                <td>{k.character}</td>
+                                <td>{k.strokes}</td>
+                                <td>{k.translation}</td>
+                                <td>{k.kunyomi}</td>
+                                <td>{k.onyomi}</td>
+                                <td id="sampleSentences">{k.sentences.map(s =>
+                                    <>
+                                        <p>{s.sentenceKanji} -「{s.readingKanjiInSentence}」- {s.translationReadingKanjiInSentence}</p>
+                                        <p>{s.translation}</p>
+                                        <p>{s.sentence}</p>
+                                        <hr id="hrSampleSentences"/>
+                                    </>
+                                )}</td>
+                            </tr>
+                        </>
+                    )}
+                </tbody>
+            </table>
+        </>
+
         return (
             <>
-                <table>
-                    <thead>
-                        <th>Znak</th>
-                        <th>Liczka kresek</th>
-                        <th>Tłumaczenie</th>
-                        <th>Czytanie kunyomi</th>
-                        <th>Czytanie onyomi</th>
-                        <th>Przykładowe zdania</th>
-                    </thead>
-                    <tbody>
-                        {kanji.map(k =>
-                            <>
-                                <tr>
-                                    <td>{k.character}</td>
-                                    <td>{k.strokes}</td>
-                                    <td>{k.translation}</td>
-                                    <td>{k.kunyomi}</td>
-                                    <td>{k.onyomi}</td>
-                                    <td id="sampleSentences">{k.sentences.map(s =>
-                                        <>
-                                            <p>{s.sentenceKanji} -「{s.readingKanjiInSentence}」- {s.translationReadingKanjiInSentence}</p>
-                                            <p>{s.translation}</p>
-                                            <p>{s.sentence}</p>
-                                            <hr id="hrSampleSentences"/>
-                                        </>
-                                    )}</td>
-                                </tr>
-                            </>
-                        ) }
-                    </tbody>
-                </table>
+                {kanji.length > 0
+                    ? (tableKanji)
+                    : (<p>Brak Kanji</p> /* There is no Kanji... */)
+                }
             </>
         );
     }

@@ -1,5 +1,5 @@
 using KanjiLearn.Server.Data;
-using KanjiLearn.Server.Services;
+using KanjiLearn.Server.Services.KanjiService;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -10,32 +10,31 @@ namespace KanjiLearn.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionStringKanjiLearnDatabase = builder.Configuration.GetConnectionString("DefaultKanjiLearnDatabase");
+            var connectionStringKanjiLearnDatabaseMSSQL = builder.Configuration.GetConnectionString("DefaultKanjiLearnDatabaseMSSQL");
 
             // Add services to the container.
+
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<KanjiLearnContext>(
-                options =>
-                {
-                    options.UseNpgsql(connectionStringKanjiLearnDatabase)
-                        .LogTo(Console.WriteLine, LogLevel.Information);
-                    options.EnableSensitiveDataLogging();
-                });
-
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
-            builder.Services.AddScoped<IKanjiService, KanjiService>();
+                    options =>
+                    {
+                        options.UseSqlServer(connectionStringKanjiLearnDatabaseMSSQL).LogTo(Console.WriteLine, LogLevel.Information);
+                        options.EnableSensitiveDataLogging();
+                    }
+               );
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddControllers();
 
-            builder.Services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                });
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddScoped<IKanjiService, KanjiService>();
+
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
 
             var app = builder.Build();
 
@@ -43,7 +42,6 @@ namespace KanjiLearn.Server
             app.UseStaticFiles();
 
             // Configure the HTTP request pipeline.
-
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

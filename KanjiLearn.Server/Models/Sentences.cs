@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace KanjiLearn.Server.Models
+﻿namespace KanjiLearn.Server.Models
 {
     public class Sentences
     {

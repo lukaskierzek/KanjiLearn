@@ -9,69 +9,67 @@ namespace KanjiLearn.Server.Data
         public DbSet<Readings> Readings { get; set; } = null!;
         public DbSet<Sentences> Sentences { get; set; } = null!;
 
-        public KanjiLearnContext(DbContextOptions<KanjiLearnContext> options)
-            : base(options)
-        { }
+        public KanjiLearnContext(DbContextOptions<KanjiLearnContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Kanji
             modelBuilder.Entity<Kanji>()
-                .Property(k => k.Character)
+                .Property(kanji => kanji.Character)
                 .HasMaxLength(1);
 
             modelBuilder.Entity<Kanji>()
-                .Property(k => k.Translation)
+                .Property(kanji => kanji.Translation)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Kanji>()
-                .Property(k => k.Strokes)
+                .Property(kanji => kanji.Strokes)
                 .HasMaxLength(2);
 
             modelBuilder.Entity<Kanji>()
-                .HasOne(k => k.Readings)
-                .WithOne(r => r.Kanji)
-                .HasForeignKey<Readings>(r => r.KanjiId)
+                .HasOne(kanji => kanji.Readings)
+                .WithOne(readings => readings.Kanji)
+                .HasForeignKey<Readings>(readings => readings.KanjiId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<Kanji>()
-                .HasMany(k => k.Sentences)
-                .WithOne(s => s.Kanji)
-                .HasForeignKey(e => e.KanjiId)
+                .HasMany(kanji => kanji.Sentences)
+                .WithOne(sentences => sentences.Kanji)
+                .HasForeignKey(sentences => sentences.KanjiId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .IsRequired();
+                .IsRequired(false);
             #endregion
 
             #region Readings
             modelBuilder.Entity<Readings>()
-                .Property(e => e.Kunyomi)
+                .Property(readings => readings.Kunyomi)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Readings>()
-                .Property(e => e.Onyomi)
+                .Property(readings => readings.Onyomi)
                 .HasMaxLength(255);
             #endregion
 
             #region Sentences
             modelBuilder.Entity<Sentences>()
-                .Property(e => e.Sentence)
+                .Property(sentences => sentences.Sentence)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Sentences>()
-                .Property(e => e.Translation)
+                .Property(sentences => sentences.Translation)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Sentences>()
-                .Property(e => e.ReadingKanjiInSentence)
+                .Property(sentences => sentences.ReadingKanjiInSentence)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Sentences>()
-                .Property(e => e.TranslationReadingKanjiInSentence)
+                .Property(sentences => sentences.TranslationReadingKanjiInSentence)
                 .HasMaxLength(255);
 
             modelBuilder.Entity<Sentences>()
-                .Property(e => e.SentenceKanji)
+                .Property(sentences => sentences.SentenceKanji)
                 .HasMaxLength(255);
             #endregion
 
@@ -79,25 +77,25 @@ namespace KanjiLearn.Server.Data
 
             #region SeedDataKanji
             modelBuilder.Entity<Kanji>().HasData(
-                        new Kanji
-                        {
-                            Id = 1,
-                            Character = "人",
-                            Translation = "Człowiek",
-                            Strokes = 2,
-                            Created = DateTime.UtcNow,
-                            LastModified = DateTime.UtcNow,
-                        },
-                        new Kanji
-                        {
-                            Id = 2,
-                            Character = "日",
-                            Translation = "Dzień, słońce",
-                            Strokes = 4,
-                            Created = DateTime.UtcNow,
-                            LastModified = DateTime.UtcNow,
-                        }
-                    );
+                            new Kanji
+                            {
+                                Id = 1,
+                                Character = "人",
+                                Translation = "Człowiek",
+                                Strokes = 2,
+                                Created = DateTime.UtcNow,
+                                LastModified = DateTime.UtcNow,
+                            },
+                            new Kanji
+                            {
+                                Id = 2,
+                                Character = "日",
+                                Translation = "Dzień, słońce",
+                                Strokes = 4,
+                                Created = DateTime.UtcNow,
+                                LastModified = DateTime.UtcNow,
+                            }
+                );
             #endregion
 
             #region SeedDataReadings
