@@ -15,7 +15,7 @@ Web page to learn Kanji in Polish.
 - Vite 4
 - React 18
 - Visual Studio 2022
-- PostgreSQL 16
+- MS SQL 2019
 
 ## Features
 - Each Kanji has a kun'yomi and on'yomi reading.
