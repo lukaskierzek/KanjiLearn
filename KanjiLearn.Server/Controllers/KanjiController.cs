@@ -28,7 +28,7 @@ namespace KanjiLearn.Server.Controllers
                 .Include(kanji => kanji.Readings)
                 .ToListAsync();
 
-            var kanjiDTO = _kanjiService.GetAllKanji(kanji);
+            var kanjiDTO = _kanjiService.GetAllKanjiDTO(kanji);
             return Ok(kanjiDTO);
         }
 
@@ -43,7 +43,7 @@ namespace KanjiLearn.Server.Controllers
             if (kanji.IsNull())
                 return NotFound();
             
-            var kanjiDTO = _kanjiService.GetKanji(kanji);
+            var kanjiDTO = _kanjiService.GetKanjiDTO(kanji);
 
             if (kanjiDTO.IsNull())
                 return NotFound();

@@ -5,8 +5,8 @@ namespace KanjiLearn.Server.Services.KanjiService
 {
     public interface IKanjiService
     {
-        IEnumerable<KanjiDTO> GetAllKanji(List<Kanji> kanji);
-        KanjiDTO GetKanji(Kanji kanji);
+        IEnumerable<KanjiDTO> GetAllKanjiDTO(List<Kanji> kanji);
+        KanjiDTO GetKanjiDTO(Kanji kanji);
         Kanji CreateKanji(CreateKanjiDTO createKanjiDTO);
         bool DeleteKanji(Kanji kanji);
         bool IsAnyKanjiById(int id);

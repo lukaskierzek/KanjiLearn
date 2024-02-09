@@ -17,9 +17,9 @@ namespace KanjiLearn.Server.Services.KanjiService
             _mapper = mapper;
         }
 
-        public IEnumerable<KanjiDTO> GetAllKanji(List<Kanji> kanji) => _mapper.Map<List<KanjiDTO>>(kanji);
+        public IEnumerable<KanjiDTO> GetAllKanjiDTO(List<Kanji> kanji) => _mapper.Map<List<KanjiDTO>>(kanji);
 
-        public KanjiDTO GetKanji(Kanji kanji) => _mapper.Map<KanjiDTO>(kanji);
+        public KanjiDTO GetKanjiDTO(Kanji kanji) => _mapper.Map<KanjiDTO>(kanji);
 
         public Kanji CreateKanji(CreateKanjiDTO createKanjiDTO) => _mapper.Map<Kanji>(createKanjiDTO);
 
