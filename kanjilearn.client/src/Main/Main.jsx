@@ -1,4 +1,17 @@
 ﻿import { useEffect, useState } from 'react';
+import {
+    ErrorPL,
+    LoadingKanjiPL,
+    LoadingProblemPL,
+    NoKanjiPL, RefreshPagePL,
+    thCharacterPL,
+    thKunyomiPL,
+    thOnyomiPL,
+    thSentencesPL,
+    thStrokesPL,
+    thTranslationPL
+} from "@/Main/Constants.jsx";
+import formAddKanji from './FormAddKanji';
 
 export default function App() {
     const [kanji, setKanji] = useState();
@@ -33,12 +46,12 @@ export default function App() {
         <>
             <table>
                 <thead>
-                    <th>Znak</th>
-                    <th>Liczka kresek</th>
-                    <th>Tłumaczenie</th>
-                    <th>Czytanie kunyomi</th>
-                    <th>Czytanie onyomi</th>
-                    <th>Przykładowe zdania</th>
+                    <th>{thCharacterPL}</th>
+                    <th>{thStrokesPL}</th>
+                    <th>{thTranslationPL}</th>
+                    <th>{thKunyomiPL}</th>
+                    <th>{thOnyomiPL}</th>
+                    <th>{thSentencesPL}</th>
                 </thead>
                 <tbody>
                     {kanji.map(k =>
@@ -68,7 +81,7 @@ export default function App() {
             <>
                 {kanji.length > 0
                     ? (tableKanji)
-                    : (<p>Brak Kanji</p> /* There is no Kanji... */)
+                    : (<p>{NoKanjiPL}</p> /* There is no Kanji... */)
                 }
             </>
         );
@@ -77,9 +90,12 @@ export default function App() {
     return (
         <>
             <h1 id="tabelLabel">Kanji</h1>
-            {loading && <p>Ładowanie Kanji...</p>} {/* Loading Kanji... */}
-            {error && <p>{`Problem z ładowaniem Kanji. Błąd: "${error}". Proszę odśwież stronę.`}</p>} {/*There is a problem witch fetching Kanji. Error: "${error}". Please refresh the page.*/ }
+            {loading && <p>{LoadingKanjiPL}</p>} {/* Loading Kanji... */}
+            {error && <p>{LoadingProblemPL}.</p>} {/*There is a problem witch fetching Kanji.*/ }
+            {error && <p>{ErrorPL}: {error}</p>} {/*Error: "${error}".*/ }
+            {error && <p>{RefreshPagePL}.</p>} {/*Please refresh the page.*/ }
             {kanji && contentKanji()}
+            {kanji && formAddKanji()}
         </>
     );
 }
